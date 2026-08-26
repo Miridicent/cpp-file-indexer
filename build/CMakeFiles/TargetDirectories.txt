@@ -1,0 +1,3 @@
+C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/CMakeFiles/fileindex.dir
+C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/CMakeFiles/ZERO_CHECK.dir

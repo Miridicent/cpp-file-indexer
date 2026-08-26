@@ -1,0 +1,10 @@
+^C:\USERS\CONOR\ONEDRIVE\DOCUMENTS\CPP-FILE-INDEXER\BUILD\CMAKEFILES\AEB7D2ACBB5ACD47FAE0E7D8469B8F76\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/conor/OneDrive/Documents/cpp-file-indexer -BC:/Users/conor/OneDrive/Documents/cpp-file-indexer/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/Fileindexer.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
