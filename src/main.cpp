@@ -10,13 +10,8 @@ int main(int argc, char* argv[])
         std::cout << "Argument " << i << ": " << argv[i] << std::endl;
     }
 
-    if (argc < 2)
-    {
-        std::cout << "Error: Please provide a directory path.";
-        return 1;
-    }
-
     std::filesystem::path directoryPath = argv[1];
+    std::filesystem::directory_iterator iterator = directoryPath;
 
     if (std::filesystem::exists(directoryPath))
     {
@@ -24,7 +19,7 @@ int main(int argc, char* argv[])
     }
     else 
     {
-        std::cout << "Error! Directory not found.";
+        std::cout << "Error! Directory not found." << std::endl;
     }
 
     return 0;
