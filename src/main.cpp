@@ -11,12 +11,20 @@ int main(int argc, char* argv[])
     }
 
     std::filesystem::path directoryPath = argv[1];
-    std::filesystem::directory_iterator iterator = directoryPath;
+    
 
     if (std::filesystem::exists(directoryPath))
     {
         std::cout << "Directory exists." << std::endl;
+
+        std::filesystem::directory_iterator iterator(directoryPath);
+
+        for (const auto& entry : iterator)
+        {
+            std::cout << entry.path() << std::endl;
+        }
     }
+
     else 
     {
         std::cout << "Error! Directory not found." << std::endl;
