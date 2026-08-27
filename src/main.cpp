@@ -32,15 +32,23 @@ int main(int argc, char* argv[])
     {
         std::cout << "Directory found." << std::endl;
 
-        std::filesystem::directory_iterator iterator(directoryPath);
+        std::filesystem::recursive_directory_iterator iterator(directoryPath);
 
         for (const auto& entry : iterator)
         {
-            if (entry.is_directory())
+
+            if (entry.is_directory() && (entry.path().filename() == ".git" || entry.path().filename() == "build"))
             {
+                iterator.disable_recursion_pending();
                 std::cout << "Directory: " << entry.path() << std::endl;
                 
             }
+
+            else if (entry.is_directory())
+            {
+                std::cout << "Directory: " << entry.path() << std::endl;
+            }
+
             else 
             {
                 std::cout << "File: " << entry.path() << std::endl;
