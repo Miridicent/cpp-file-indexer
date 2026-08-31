@@ -79,6 +79,19 @@ int main(int argc, char* argv[])
         }
 
         std::cout << "\nIndexed " << files.size() << " files.\n";
+
+        std::string searchExtension;
+        
+        std::cout << "Enter an extension to search for: ";
+        std::cin >> searchExtension;
+
+        for (const auto& file : files)
+        {
+            if (file.extension == searchExtension)
+            {
+                std::cout << file.path << std::endl;
+            }
+        }
     }
 
     return 0;
