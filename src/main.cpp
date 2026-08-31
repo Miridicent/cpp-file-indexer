@@ -1,5 +1,17 @@
 #include <iostream>
 #include <filesystem>
+#include <vector>
+#include <string>
+#include <cstdint>
+
+struct FileInfo {
+    std::filesystem::path path;
+    std::string filename;
+    std::string extension;
+    std::uintmax_t size; 
+};
+
+std::vector<FileInfo> files;
 
 int main(int argc, char* argv[])
 {
@@ -51,9 +63,22 @@ int main(int argc, char* argv[])
 
             else 
             {
+                FileInfo file;
+
+                file.path = entry.path();
+                file.filename = entry.path().filename().string();
+                file.extension = entry.path().extension().string();
+                file.size = entry.file_size();
+
+                files.push_back(file);
+
                 std::cout << "File: " << entry.path() << std::endl;
+                std::cout << "Size: " << entry.file_size() << " bytes" << std::endl;
+                std::cout << "Extension: " << entry.path().extension() << std::endl;
             }
         }
+
+        std::cout << "\nIndexed " << files.size() << " files.\n";
     }
 
     return 0;
