@@ -13,23 +13,41 @@ struct FileInfo {
 
 void searchByExtension(const std::vector<FileInfo>& files, const std::string& extension)
 {
+
+    bool found = false;
+
     for (const auto& file : files)
     {
         if (file.extension == extension)
         {
             std::cout << file.path << std::endl;
+            found = true;
         }
+    }
+
+    if(!found)
+    {
+        std::cout << "No files found with extension: " << extension << std::endl;
     }
 }
 
 void searchByFilename(const std::vector<FileInfo>& files, const std::string& filename)
 {
+
+    bool found = false;
+
     for (const auto& file : files)
     {
         if (file.filename == filename)
         {
             std::cout << file.path << std::endl;
+            found = true;
         }
+    }
+
+    if(!found)
+    {
+        std::cout << "No files found with filename: " << filename << std::endl;
     }
 }
 
