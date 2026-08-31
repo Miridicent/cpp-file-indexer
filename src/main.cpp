@@ -11,6 +11,28 @@ struct FileInfo {
     std::uintmax_t size; 
 };
 
+void searchByExtension(const std::vector<FileInfo>& files, const std::string& extension)
+{
+    for (const auto& file : files)
+    {
+        if (file.extension == extension)
+        {
+            std::cout << file.path << std::endl;
+        }
+    }
+}
+
+void searchByFilename(const std::vector<FileInfo>& files, const std::string& filename)
+{
+    for (const auto& file : files)
+    {
+        if (file.filename == filename)
+        {
+            std::cout << file.path << std::endl;
+        }
+    }
+}
+
 std::vector<FileInfo> files;
 
 int main(int argc, char* argv[])
@@ -85,13 +107,14 @@ int main(int argc, char* argv[])
         std::cout << "Enter an extension to search for: ";
         std::cin >> searchExtension;
 
-        for (const auto& file : files)
-        {
-            if (file.extension == searchExtension)
-            {
-                std::cout << file.path << std::endl;
-            }
-        }
+        searchByExtension(files, searchExtension);
+
+        std::string searchFilename;
+
+        std::cout << "Enter a filename to search for: ";
+        std::cin >> searchFilename;
+
+        searchByFilename(files, searchFilename);
     }
 
     return 0;
