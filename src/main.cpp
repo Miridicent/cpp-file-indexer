@@ -51,6 +51,26 @@ void searchByFilename(const std::vector<FileInfo>& files, const std::string& fil
     }
 }
 
+void searchBySize(const std::vector<FileInfo>& files, std::uintmax_t minimumSize)
+{
+    bool found = false;
+
+    for (const auto& file : files)
+    {
+        if (file.size >= minimumSize)
+        {
+            std::cout << file.path << " - " << file.size << " bytes" << std::endl;
+            found = true;
+        }
+    }
+
+    if (!found)
+    {
+        std::cout << "no files found with a size of "
+                  << minimumSize << " bytes or larger." << std::endl;
+    }
+}
+
 std::vector<FileInfo> files;
 
 int main(int argc, char* argv[])
@@ -127,7 +147,8 @@ int main(int argc, char* argv[])
             std::cout << "\nWhat would you like to do?\n";
             std::cout << "1. Search by extension\n";
             std::cout << "2. Search by filename\n";
-            std::cout << "3. Exit\n";
+            std::cout << "3. Search by minimum file size\n";
+            std::cout << "4. Exit\n";
             std::cout << "Choice: "; 
 
             std::cin >> choice;
@@ -166,6 +187,26 @@ int main(int argc, char* argv[])
                 }
 
                 case 3:
+                {
+                    std::uintmax_t minimumSize;
+
+                    std::cout << "Enter minimum file size in bytes: ";
+                    std::cin >> minimumSize;
+
+                    if (std::cin.fail())
+                    {
+                        std::cin.clear();
+                        std::cin.ignore(1000, '\n');
+
+                        std::cout << "Invalid input. Please enter a number\n";
+                        break;
+                    }
+
+                    searchBySize(files, minimumSize);
+                    break;
+                }
+
+                case 4:
                     std::cout << "Exiting...\n";
                     return 0;
                 
