@@ -120,19 +120,62 @@ int main(int argc, char* argv[])
 
         std::cout << "\nIndexed " << files.size() << " files.\n";
 
-        std::string searchExtension;
-        
-        std::cout << "Enter an extension to search for: ";
-        std::cin >> searchExtension;
+        int choice;
 
-        searchByExtension(files, searchExtension);
+        while (true)
+        {
+            std::cout << "\nWhat would you like to do?\n";
+            std::cout << "1. Search by extension\n";
+            std::cout << "2. Search by filename\n";
+            std::cout << "3. Exit\n";
+            std::cout << "Choice: "; 
 
-        std::string searchFilename;
+            std::cin >> choice;
 
-        std::cout << "Enter a filename to search for: ";
-        std::cin >> searchFilename;
+            if (std::cin.fail())
+            {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
 
-        searchByFilename(files, searchFilename);
+                std::cout << "Invalid input. Please enter a number.\n";
+                continue;
+            }
+
+            switch (choice)
+            {
+                case 1:
+                {
+                    std::string searchExtension;
+
+                    std::cout << "Enter an extension to search for: ";
+                    std::cin >> searchExtension;
+
+                    searchByExtension(files, searchExtension);
+                    break;
+                }
+
+                case 2:
+                {
+                    std::string searchFilename;
+
+                    std::cout << "Enter a filename to search for: ";
+                    std::cin >> searchFilename;
+
+                    searchByFilename(files,searchFilename);
+                    break;
+                }
+
+                case 3:
+                    std::cout << "Exiting...\n";
+                    return 0;
+                
+
+                default:
+                    std::cout << "Invalid choice.\n"; 
+                
+
+            }
+        }
     }
 
     return 0;
