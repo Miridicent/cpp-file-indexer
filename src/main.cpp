@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <map>
 
 struct FileInfo {
     std::filesystem::path path;
@@ -68,6 +69,51 @@ void searchBySize(const std::vector<FileInfo>& files, std::uintmax_t minimumSize
     {
         std::cout << "no files found with a size of "
                   << minimumSize << " bytes or larger." << std::endl;
+    }
+}
+
+void showStatistics(const std::vector<FileInfo>& files)
+{
+    std::uintmax_t totalSize = 0;
+
+    for (const auto& file : files)
+    {
+        totalSize += file.size;
+    }
+
+    std::cout << "\n===== Index Statistics =====\n";
+    std::cout << "Total files: " << files.size() << std::endl;
+    std::cout << "Total size: " << totalSize << " bytes" << std::endl;
+
+    double averageSize = 0;
+
+    if (!files.empty())
+    {
+        averageSize = static_cast<double>(totalSize) / files.size();
+
+    }
+
+    std::cout << "Average file size: " << averageSize << " bytes" << std::endl;
+
+    std::map<std::string, int> extensionCounts;
+
+    for (const auto& file : files)
+    {
+        extensionCounts[file.extension]++;
+    }
+
+    std::cout << "\nFiles by extension:\n";
+
+    for (const auto& entry : extensionCounts)
+    {
+        if (entry.first.empty())
+        {
+            std::cout << "  [no extension]: " << entry.second << std::endl;
+        }
+        else
+        {
+            std::cout << "  " << entry.first << ": " << entry.second << std::endl;
+        }
     }
 }
 
@@ -148,7 +194,8 @@ int main(int argc, char* argv[])
             std::cout << "1. Search by extension\n";
             std::cout << "2. Search by filename\n";
             std::cout << "3. Search by minimum file size\n";
-            std::cout << "4. Exit\n";
+            std::cout << "4. Show statistics\n";
+            std::cout << "5. Exit\n";
             std::cout << "Choice: "; 
 
             std::cin >> choice;
@@ -207,6 +254,12 @@ int main(int argc, char* argv[])
                 }
 
                 case 4:
+                {
+                    showStatistics(files);
+                    break;
+                }
+
+                case 5:
                     std::cout << "Exiting...\n";
                     return 0;
                 
