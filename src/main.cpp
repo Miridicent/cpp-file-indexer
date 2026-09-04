@@ -51,7 +51,7 @@ void searchByFilename(const std::vector<FileInfo>& files, const std::string& fil
 
     for (const auto& file : files)
     {
-        if (file.filename == filename)
+        if (toLower(file.filename) == toLower(filename))
         {
             std::cout << file.path << std::endl;
             found = true;
@@ -277,21 +277,21 @@ int main(int argc, char* argv[])
 
                 case 3:
                 {
-                    std::uintmax_t minimumSize;
+                    long long minimumSize;
 
                     std::cout << "Enter minimum file size in bytes: ";
                     std::cin >> minimumSize;
 
-                    if (std::cin.fail())
+                    if (std::cin.fail() || minimumSize < 0)
                     {
                         std::cin.clear();
                         std::cin.ignore(1000, '\n');
 
-                        std::cout << "Invalid input. Please enter a number\n";
+                        std::cout << "Invalid input. Please enter a non negative number\n";
                         break;
                     }
 
-                    searchBySize(files, minimumSize);
+                    searchBySize(files, static_cast<std::uintmax_t>(minimumSize));
                     break;
                 }
 
