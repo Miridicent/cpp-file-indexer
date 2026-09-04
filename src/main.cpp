@@ -4,6 +4,8 @@
 #include <string>
 #include <cstdint>
 #include <map>
+#include <algorithm>
+#include <cctype>
 
 struct FileInfo {
     std::filesystem::path path;
@@ -12,6 +14,16 @@ struct FileInfo {
     std::uintmax_t size; 
 };
 
+std::string toLower(std::string text)
+{
+    std::transform(text.begin(), text.end(), text.begin(),
+                    [](unsigned char c)
+                    {
+                        return std::tolower(c);
+                    });
+    return text;
+}
+
 void searchByExtension(const std::vector<FileInfo>& files, const std::string& extension)
 {
 
@@ -19,7 +31,7 @@ void searchByExtension(const std::vector<FileInfo>& files, const std::string& ex
 
     for (const auto& file : files)
     {
-        if (file.extension == extension)
+        if (toLower(file.extension) == toLower(extension))
         {
             std::cout << file.path << std::endl;
             found = true;
@@ -94,6 +106,36 @@ void showStatistics(const std::vector<FileInfo>& files)
     }
 
     std::cout << "Average file size: " << averageSize << " bytes" << std::endl;
+
+    std::uintmax_t largestFileSize = 0;
+    std::string largestFilePath;
+
+    for (const auto& file : files)
+    {
+        if (file.size > largestFileSize)
+        {
+            largestFileSize = file.size;
+            largestFilePath = file.path.string();
+        }
+    }
+
+    std::cout << "Largest file: " << largestFilePath
+              << " (" << largestFileSize << " bytes)" << std::endl;
+
+    std::uintmax_t smallestFileSize = 0;
+    std::string smallestFilePath;
+
+    for (const auto& file : files)
+    {
+        if (smallestFilePath.empty() || file.size < smallestFileSize)
+        {
+            smallestFileSize = file.size;
+            smallestFilePath = file.path.string();
+        }
+    }
+
+    std::cout << "Smallest file: " << smallestFilePath
+          << " (" << smallestFileSize << " bytes)" << std::endl;
 
     std::map<std::string, int> extensionCounts;
 
