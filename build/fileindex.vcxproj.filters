@@ -4,6 +4,9 @@
     <ClCompile Include="C:\Users\conor\OneDrive\Documents\cpp-file-indexer\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\conor\OneDrive\Documents\cpp-file-indexer\src\file_indexer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\conor\OneDrive\Documents\cpp-file-indexer\CMakeLists.txt" />

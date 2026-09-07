@@ -11,4 +11,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(fileindex
     src/main.cpp
+    src/file_indexer.cpp
 )
+
+target_include_directories(fileindex PRIVATE include)
