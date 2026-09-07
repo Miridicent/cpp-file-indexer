@@ -164,16 +164,34 @@ std::vector<FileInfo> indexDirectory(const std::filesystem::path& directoryPath)
 {
     std::vector<FileInfo> files;
 
-    std::filesystem::recursive_directory_iterator iterator(directoryPath);
+    std::error_code error;
+
+    std::filesystem::recursive_directory_iterator iterator(directoryPath, std::filesystem::directory_options::skip_permission_denied, error);
+
+    if (error)
+    {
+        std::cout << "Error accessing directory: " << error.message() << std::endl;
+        return files;
+    }
 
     for (const auto& entry : iterator)
         {
+            std::error_code entryError;
+            bool isDirectory = entry.is_directory(entryError);
 
-            if (entry.is_directory() && (entry.path().filename() == ".git" || entry.path().filename() == "build"))
+            if (entryError)
+            {
+                std::cout << "Could not access: "
+                          << entry.path() << " - "
+                          << entryError.message() << std::endl;
+                continue;
+            }
+            
+            if (isDirectory && (entry.path().filename() == ".git" || entry.path().filename() == "build"))
             {
                 iterator.disable_recursion_pending();
                 std::cout << "Directory: " << entry.path() << std::endl;
-                
+                    
             }
 
             else if (entry.is_directory())
@@ -188,14 +206,25 @@ std::vector<FileInfo> indexDirectory(const std::filesystem::path& directoryPath)
                 file.path = entry.path();
                 file.filename = entry.path().filename().string();
                 file.extension = entry.path().extension().string();
-                file.size = entry.file_size();
+
+                std::error_code sizeError;
+                file.size = entry.file_size(sizeError);
+
+                if (sizeError)
+                {
+                    std::cout << "Could not read file size: " 
+                              << entry.path() << " - "
+                              << sizeError.message() << std::endl;
+                    continue;
+                }
 
                 files.push_back(file);
 
                 std::cout << "File: " << entry.path() << std::endl;
-                std::cout << "Size: " << entry.file_size() << " bytes" << std::endl;
-                std::cout << "Extension: " << entry.path().extension() << std::endl;
+                std::cout << "Size: " << file.size << " bytes" << std::endl;
+                std::cout << "Extension: " << file.extension << std::endl;
             }
+            
         }
 
         return files;
