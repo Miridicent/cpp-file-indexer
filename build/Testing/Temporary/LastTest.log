@@ -1,0 +1,57 @@
+Start testing: Sep 08 15:23 GMT Summer Time
+----------------------------------------------------------
+1/2 Testing: toLowerTest.ConvertsUppercaseToLowercase
+1/2 Test: toLowerTest.ConvertsUppercaseToLowercase
+Command: "C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/Release/fileindex_tests.exe" "--gtest_filter=toLowerTest.ConvertsUppercaseToLowercase" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build
+"toLowerTest.ConvertsUppercaseToLowercase" start time: Sep 08 15:23 GMT Summer Time
+Output:
+----------------------------------------------------------
+Running main() from C:\Users\conor\OneDrive\Documents\cpp-file-indexer\build\_deps\googletest-src\googletest\src\gtest_main.cc
+Note: Google Test filter = toLowerTest.ConvertsUppercaseToLowercase
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from toLowerTest
+[ RUN      ] toLowerTest.ConvertsUppercaseToLowercase
+[       OK ] toLowerTest.ConvertsUppercaseToLowercase (0 ms)
+[----------] 1 test from toLowerTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"toLowerTest.ConvertsUppercaseToLowercase" end time: Sep 08 15:23 GMT Summer Time
+"toLowerTest.ConvertsUppercaseToLowercase" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: searchByExtensionTest.FindsMatchingExtension
+2/2 Test: searchByExtensionTest.FindsMatchingExtension
+Command: "C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/Release/fileindex_tests.exe" "--gtest_filter=searchByExtensionTest.FindsMatchingExtension" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build
+"searchByExtensionTest.FindsMatchingExtension" start time: Sep 08 15:23 GMT Summer Time
+Output:
+----------------------------------------------------------
+Running main() from C:\Users\conor\OneDrive\Documents\cpp-file-indexer\build\_deps\googletest-src\googletest\src\gtest_main.cc
+Note: Google Test filter = searchByExtensionTest.FindsMatchingExtension
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from searchByExtensionTest
+[ RUN      ] searchByExtensionTest.FindsMatchingExtension
+[       OK ] searchByExtensionTest.FindsMatchingExtension (0 ms)
+[----------] 1 test from searchByExtensionTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"searchByExtensionTest.FindsMatchingExtension" end time: Sep 08 15:23 GMT Summer Time
+"searchByExtensionTest.FindsMatchingExtension" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 08 15:23 GMT Summer Time

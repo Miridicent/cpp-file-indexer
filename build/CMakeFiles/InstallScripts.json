@@ -1,7 +1,10 @@
 {
 	"InstallScripts" : 
 	[
-		"C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/cmake_install.cmake"
+		"C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/cmake_install.cmake",
+		"C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/_deps/googletest-build/cmake_install.cmake",
+		"C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/_deps/googletest-build/googlemock/cmake_install.cmake",
+		"C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/_deps/googletest-build/googletest/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

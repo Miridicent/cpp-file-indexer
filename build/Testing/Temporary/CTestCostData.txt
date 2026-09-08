@@ -1,0 +1,3 @@
+toLowerTest.ConvertsUppercaseToLowercase 2 0.0141232
+searchByExtensionTest.FindsMatchingExtension 1 0.0267147
+---

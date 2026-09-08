@@ -48,7 +48,22 @@ void showMenu(const std::vector<FileInfo>& files)
                     std::cout << "Enter an extension to search for: ";
                     std::cin >> searchExtension;
 
-                    searchByExtension(files, searchExtension);
+                    std::vector<FileInfo> results =
+                        searchByExtension(files, searchExtension);
+
+                    if (results.empty())
+                    {
+                        std::cout << "No files found with extension: "
+                                << searchExtension << std::endl;
+                    }
+                    else
+                    {
+                        for (const auto& file : results)
+                        {
+                            std::cout << file.path << std::endl;
+                        }
+                    }
+
                     break;
                 }
 

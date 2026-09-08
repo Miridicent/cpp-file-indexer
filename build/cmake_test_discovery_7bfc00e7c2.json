@@ -1,0 +1,28 @@
+{
+  "tests": 2,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "toLowerTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "ConvertsUppercaseToLowercase",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "name": "searchByExtensionTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "FindsMatchingExtension",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 11
+        }
+      ]
+    }
+  ]
+}

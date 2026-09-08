@@ -17,7 +17,7 @@ struct FileInfo
 
 std::string toLower(std::string text);
 
-void searchByExtension(
+std::vector<FileInfo> searchByExtension(
     const std::vector<FileInfo>& files, 
     const std::string& extension);
 

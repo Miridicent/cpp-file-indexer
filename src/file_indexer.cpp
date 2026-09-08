@@ -17,24 +17,20 @@ std::string toLower(std::string text)
     return text;
 }
 
-void searchByExtension(const std::vector<FileInfo>& files, const std::string& extension)
+std::vector<FileInfo> searchByExtension(const std::vector<FileInfo>& files, const std::string& extension)
 {
 
-    bool found = false;
+    std::vector<FileInfo> results;
 
     for (const auto& file : files)
     {
         if (toLower(file.extension) == toLower(extension))
         {
-            std::cout << file.path << std::endl;
-            found = true;
+            results.push_back(file);
         }
     }
 
-    if(!found)
-    {
-        std::cout << "No files found with extension: " << extension << std::endl;
-    }
+    return results;
 }
 
 void searchByFilename(const std::vector<FileInfo>& files, const std::string& filename)
