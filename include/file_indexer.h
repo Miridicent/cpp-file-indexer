@@ -21,7 +21,7 @@ std::vector<FileInfo> searchByExtension(
     const std::vector<FileInfo>& files, 
     const std::string& extension);
 
-void searchByFilename(
+std::vector<FileInfo> searchByFilename(
     const std::vector<FileInfo>& files,
     const std::string& filename
 );

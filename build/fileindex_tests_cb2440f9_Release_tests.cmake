@@ -16,4 +16,13 @@ set_tests_properties([=[searchByExtensionTest.FindsMatchingExtension]=]
     SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==]
     
 )
-set(fileindex_tests_TESTS [==[toLowerTest.ConvertsUppercaseToLowercase]==] [==[searchByExtensionTest.FindsMatchingExtension]==])
+add_test([=[searchByFilenameTest.FindsMatchingFilename]=]  C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/Release/fileindex_tests.exe [==[--gtest_filter=searchByFilenameTest.FindsMatchingFilename]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[searchByFilenameTest.FindsMatchingFilename]=]
+  PROPERTIES
+    
+    DEF_SOURCE_LINE [==[C:\Users\conor\OneDrive\Documents\cpp-file-indexer\tests\file_indexer_tests.cpp:24]==]
+    WORKING_DIRECTORY [==[C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build]==]
+    SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==]
+    
+)
+set(fileindex_tests_TESTS [==[toLowerTest.ConvertsUppercaseToLowercase]==] [==[searchByExtensionTest.FindsMatchingExtension]==] [==[searchByFilenameTest.FindsMatchingFilename]==])

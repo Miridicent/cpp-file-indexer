@@ -1,5 +1,5 @@
 {
-  "tests": 2,
+  "tests": 3,
   "name": "AllTests",
   "testsuites": [
     {
@@ -21,6 +21,17 @@
           "name": "FindsMatchingExtension",
           "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
           "line": 11
+        }
+      ]
+    },
+    {
+      "name": "searchByFilenameTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "FindsMatchingFilename",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 24
         }
       ]
     }

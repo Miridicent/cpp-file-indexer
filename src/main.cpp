@@ -74,7 +74,20 @@ void showMenu(const std::vector<FileInfo>& files)
                     std::cout << "Enter a filename to search for: ";
                     std::cin >> searchFilename;
 
-                    searchByFilename(files,searchFilename);
+                    std::vector<FileInfo> results = searchByFilename(files, searchFilename);
+
+                    if (results.empty())
+                    {
+                        std::cout << "No files found with filename: "
+                                << searchFilename << std::endl;
+                    }
+                    else 
+                    {
+                        for (const auto& file : results)
+                        {
+                            std::cout << file.path << std::endl;
+                        }
+                    }
                     break;
                 }
 

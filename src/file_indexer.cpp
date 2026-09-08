@@ -33,24 +33,19 @@ std::vector<FileInfo> searchByExtension(const std::vector<FileInfo>& files, cons
     return results;
 }
 
-void searchByFilename(const std::vector<FileInfo>& files, const std::string& filename)
+std::vector<FileInfo> searchByFilename(const std::vector<FileInfo>& files, const std::string& filename)
 {
-
-    bool found = false;
+    std::vector<FileInfo> results;
 
     for (const auto& file : files)
     {
         if (toLower(file.filename) == toLower(filename))
         {
-            std::cout << file.path << std::endl;
-            found = true;
+            results.push_back(file);
         }
     }
 
-    if(!found)
-    {
-        std::cout << "No files found with filename: " << filename << std::endl;
-    }
+    return results;
 }
 
 void searchBySize(const std::vector<FileInfo>& files, std::uintmax_t minimumSize)

@@ -1,3 +1,4 @@
-toLowerTest.ConvertsUppercaseToLowercase 2 0.0141232
-searchByExtensionTest.FindsMatchingExtension 1 0.0267147
+toLowerTest.ConvertsUppercaseToLowercase 3 0.00903577
+searchByExtensionTest.FindsMatchingExtension 2 0.013411
+searchByFilenameTest.FindsMatchingFilename 1 0.026724
 ---
