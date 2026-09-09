@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <map>
 
 struct FileInfo
 {
@@ -13,6 +14,17 @@ struct FileInfo
     std::string filename;
     std::string extension;
     std::uintmax_t size;
+};
+
+struct Statistics
+{
+    std::uintmax_t totalSize;
+    double averageSize;
+    std::uintmax_t largestFileSize;
+    std::filesystem::path largestFilePath;
+    std::uintmax_t smallestFileSize;
+    std::filesystem::path smallestFilePath;
+    std::map<std::string, int> extensionCounts;
 };
 
 std::string toLower(std::string text);
@@ -26,12 +38,12 @@ std::vector<FileInfo> searchByFilename(
     const std::string& filename
 );
 
-void searchBySize(
+std::vector<FileInfo> searchBySize(
     const std::vector<FileInfo>& files,
     std::uintmax_t minimumSize
 );
 
-void showStatistics(const std::vector<FileInfo>& files);
+Statistics calculateStatistics(const std::vector<FileInfo>& files);
 
 std::vector<FileInfo> indexDirectory(
     const std::filesystem::path& directoryPath

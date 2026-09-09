@@ -1,5 +1,5 @@
 {
-  "tests": 3,
+  "tests": 5,
   "name": "AllTests",
   "testsuites": [
     {
@@ -31,7 +31,29 @@
         {
           "name": "FindsMatchingFilename",
           "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
-          "line": 24
+          "line": 28
+        }
+      ]
+    },
+    {
+      "name": "searchBySizeTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "FindsFilesAboveMinimumSize",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "name": "calculateStatisticsTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "CalculateCorrectStatistics",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 62
         }
       ]
     }

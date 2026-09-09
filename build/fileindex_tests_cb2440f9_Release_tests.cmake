@@ -20,9 +20,27 @@ add_test([=[searchByFilenameTest.FindsMatchingFilename]=]  C:/Users/conor/OneDri
 set_tests_properties([=[searchByFilenameTest.FindsMatchingFilename]=]
   PROPERTIES
     
-    DEF_SOURCE_LINE [==[C:\Users\conor\OneDrive\Documents\cpp-file-indexer\tests\file_indexer_tests.cpp:24]==]
+    DEF_SOURCE_LINE [==[C:\Users\conor\OneDrive\Documents\cpp-file-indexer\tests\file_indexer_tests.cpp:28]==]
     WORKING_DIRECTORY [==[C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build]==]
     SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==]
     
 )
-set(fileindex_tests_TESTS [==[toLowerTest.ConvertsUppercaseToLowercase]==] [==[searchByExtensionTest.FindsMatchingExtension]==] [==[searchByFilenameTest.FindsMatchingFilename]==])
+add_test([=[searchBySizeTest.FindsFilesAboveMinimumSize]=]  C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/Release/fileindex_tests.exe [==[--gtest_filter=searchBySizeTest.FindsFilesAboveMinimumSize]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[searchBySizeTest.FindsFilesAboveMinimumSize]=]
+  PROPERTIES
+    
+    DEF_SOURCE_LINE [==[C:\Users\conor\OneDrive\Documents\cpp-file-indexer\tests\file_indexer_tests.cpp:44]==]
+    WORKING_DIRECTORY [==[C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build]==]
+    SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==]
+    
+)
+add_test([=[calculateStatisticsTest.CalculateCorrectStatistics]=]  C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/Release/fileindex_tests.exe [==[--gtest_filter=calculateStatisticsTest.CalculateCorrectStatistics]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[calculateStatisticsTest.CalculateCorrectStatistics]=]
+  PROPERTIES
+    
+    DEF_SOURCE_LINE [==[C:\Users\conor\OneDrive\Documents\cpp-file-indexer\tests\file_indexer_tests.cpp:62]==]
+    WORKING_DIRECTORY [==[C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build]==]
+    SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==]
+    
+)
+set(fileindex_tests_TESTS [==[toLowerTest.ConvertsUppercaseToLowercase]==] [==[searchByExtensionTest.FindsMatchingExtension]==] [==[searchByFilenameTest.FindsMatchingFilename]==] [==[searchBySizeTest.FindsFilesAboveMinimumSize]==] [==[calculateStatisticsTest.CalculateCorrectStatistics]==])

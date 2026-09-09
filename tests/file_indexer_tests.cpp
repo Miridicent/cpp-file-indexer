@@ -17,8 +17,12 @@ TEST(searchByExtensionTest, FindsMatchingExtension)
         FileInfo{std::filesystem::path("main.cpp"), "main.cpp", ".cpp", 300}
     };
 
-    // This test checks that the functions can be called.
-    searchByExtension(files, ".cpp");
+    std::vector<FileInfo> results =
+        searchByExtension(files, ".cpp");
+
+    ASSERT_EQ(results.size(), 2);
+    EXPECT_EQ(results[0].filename, "test.cpp");
+    EXPECT_EQ(results[1].filename, "main.cpp");
 }
 
 TEST(searchByFilenameTest, FindsMatchingFilename)
@@ -35,4 +39,46 @@ TEST(searchByFilenameTest, FindsMatchingFilename)
     
         ASSERT_EQ(results.size(), 1);
         EXPECT_EQ(results[0].filename, "main.cpp");
+}
+
+TEST(searchBySizeTest, FindsFilesAboveMinimumSize)
+{
+    std::vector<FileInfo> files =
+    {
+        FileInfo{std::filesystem::path("small.txt"), "small.txt", ".txt", 100},
+        FileInfo{std::filesystem::path("medium.cpp"), "medium.cpp", ".cpp", 500},
+        FileInfo{std::filesystem::path("large.cpp"), "large.cpp", ".cpp", 1000}
+
+    };
+
+    std::vector<FileInfo> results =
+        searchBySize(files, 500);
+
+    ASSERT_EQ(results.size(), 2);
+    EXPECT_EQ(results[0].filename, "medium.cpp");
+    EXPECT_EQ(results[1].filename, "large.cpp");
+}
+
+TEST(calculateStatisticsTest, CalculateCorrectStatistics)
+{
+    std::vector<FileInfo> files = 
+    {
+        FileInfo{std::filesystem::path("small.txt"), "small.txt", ".txt", 100},
+        FileInfo{std::filesystem::path("medium.cpp"), "medium.cpp", ".cpp", 500},
+        FileInfo{std::filesystem::path("large.cpp"), "large.cpp", ".cpp", 1000}
+    };
+
+    Statistics statistics = calculateStatistics(files);
+
+    EXPECT_EQ(statistics.totalSize, 1600);
+    EXPECT_DOUBLE_EQ(statistics.averageSize, 1600.0 / 3);
+
+    EXPECT_EQ(statistics.largestFileSize, 1000);
+    EXPECT_EQ(statistics.largestFilePath, std::filesystem::path("large.cpp"));
+
+    EXPECT_EQ(statistics.smallestFileSize, 100);
+    EXPECT_EQ(statistics.smallestFilePath, std::filesystem::path("small.txt"));
+
+    EXPECT_EQ(statistics.extensionCounts[".cpp"], 2);
+    EXPECT_EQ(statistics.extensionCounts[".txt"], 1);
 }

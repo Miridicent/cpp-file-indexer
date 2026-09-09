@@ -48,99 +48,61 @@ std::vector<FileInfo> searchByFilename(const std::vector<FileInfo>& files, const
     return results;
 }
 
-void searchBySize(const std::vector<FileInfo>& files, std::uintmax_t minimumSize)
+std::vector<FileInfo> searchBySize(const std::vector<FileInfo>& files, std::uintmax_t minimumSize)
 {
-    bool found = false;
+    std::vector<FileInfo> results;
 
     for (const auto& file : files)
     {
         if (file.size >= minimumSize)
         {
-            std::cout << file.path << " - " << file.size << " bytes" << std::endl;
-            found = true;
+            results.push_back(file);
         }
     }
 
-    if (!found)
-    {
-        std::cout << "no files found with a size of "
-                  << minimumSize << " bytes or larger." << std::endl;
-    }
+    return results;
 }
 
-void showStatistics(const std::vector<FileInfo>& files)
+Statistics calculateStatistics(const std::vector<FileInfo>& files)
 {
-    std::uintmax_t totalSize = 0;
+    Statistics statistics{};
 
     for (const auto& file : files)
     {
-        totalSize += file.size;
+        statistics.totalSize += file.size;
     }
-
-    std::cout << "\n===== Index Statistics =====\n";
-    std::cout << "Total files: " << files.size() << std::endl;
-    std::cout << "Total size: " << totalSize << " bytes" << std::endl;
-
-    double averageSize = 0;
 
     if (!files.empty())
     {
-        averageSize = static_cast<double>(totalSize) / files.size();
+        statistics.averageSize = static_cast<double>(statistics.totalSize) / files.size();
 
+        statistics.largestFileSize = files[0].size;
+        statistics.largestFilePath = files[0].path;
+
+        statistics.smallestFileSize = files[0].size;
+        statistics.smallestFilePath = files[0].path;
     }
 
-    std::cout << "Average file size: " << averageSize << " bytes" << std::endl;
-
-    std::uintmax_t largestFileSize = 0;
-    std::string largestFilePath;
 
     for (const auto& file : files)
     {
-        if (file.size > largestFileSize)
+        if (file.size > statistics.largestFileSize)
         {
-            largestFileSize = file.size;
-            largestFilePath = file.path.string();
+            statistics.largestFileSize = file.size;
+            statistics.largestFilePath = file.path;
         }
+
+        if (file.size < statistics.smallestFileSize)
+        {
+            statistics.smallestFileSize = file.size;
+            statistics.smallestFilePath = file.path;
+        }
+
+        statistics.extensionCounts[file.extension]++;
     }
 
-    std::cout << "Largest file: " << largestFilePath
-              << " (" << largestFileSize << " bytes)" << std::endl;
+    return statistics;
 
-    std::uintmax_t smallestFileSize = 0;
-    std::string smallestFilePath;
-
-    for (const auto& file : files)
-    {
-        if (smallestFilePath.empty() || file.size < smallestFileSize)
-        {
-            smallestFileSize = file.size;
-            smallestFilePath = file.path.string();
-        }
-    }
-
-    std::cout << "Smallest file: " << smallestFilePath
-          << " (" << smallestFileSize << " bytes)" << std::endl;
-
-    std::map<std::string, int> extensionCounts;
-
-    for (const auto& file : files)
-    {
-        extensionCounts[file.extension]++;
-    }
-
-    std::cout << "\nFiles by extension:\n";
-
-    for (const auto& entry : extensionCounts)
-    {
-        if (entry.first.empty())
-        {
-            std::cout << "  [no extension]: " << entry.second << std::endl;
-        }
-        else
-        {
-            std::cout << "  " << entry.first << ": " << entry.second << std::endl;
-        }
-    }
 }
 
 std::vector<FileInfo> indexDirectory(const std::filesystem::path& directoryPath)

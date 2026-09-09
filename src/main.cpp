@@ -107,20 +107,58 @@ void showMenu(const std::vector<FileInfo>& files)
                         break;
                     }
 
-                    searchBySize(files, static_cast<std::uintmax_t>(minimumSize));
+                    std::vector<FileInfo> results =
+                         searchBySize(files, static_cast<std::uintmax_t>(minimumSize));
+
+                    if (results.empty())
+                    {
+                        std::cout << "No files found with a size of "
+                                << minimumSize << " bytes or larger." << std::endl;
+                    }
+                    else
+                    {
+                        for (const auto& file : results)
+                        {
+                            std::cout << file.path << " - "
+                                    << file.size << " bytes" << std::endl;
+                        }
+                    }        
+                    
                     break;
                 }
 
                 case 4:
                 {
-                    showStatistics(files);
+
+                    Statistics statistics = calculateStatistics(files);
+
+                    std::cout << "\n===== Index Statistics =====\n";
+                    std::cout << "Total files: " << files.size() << std::endl;
+                    std::cout << "Total size: " << statistics.totalSize << " bytes" << std::endl;
+                    std::cout << "Average file size: " << statistics.averageSize << " bytes" << std::endl;
+                    std::cout << "Largest file: " << statistics.largestFilePath << " (" << statistics.largestFileSize << " bytes)" << std::endl;
+                    std::cout << "Smallest file: " << statistics.smallestFilePath << " (" << statistics.smallestFileSize << " bytes)" << std::endl;
+                   
+                    std::cout << "\nFiles by extension:\n";
+                    
+                    for (const auto& entry : statistics.extensionCounts)
+                    {
+                        if (entry.first.empty())
+                        {
+                            std::cout << "  [no extension]: " << entry.second << std::endl;
+                        }
+                        else
+                        {
+                            std::cout << "  " << entry.first << ": " << entry.second << std::endl;
+                        }
+                    }
+
                     break;
                 }
 
                 case 5:
-                    std::cout << "Exiting...\n";
-                    return;
-                
+                std::cout << "Exiting...\n";
+                return;
 
                 default:
                     std::cout << "Invalid choice.\n"; 
