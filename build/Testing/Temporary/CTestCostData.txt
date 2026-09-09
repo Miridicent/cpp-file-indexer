@@ -1,12 +1,12 @@
-toLowerTest.ConvertsUppercaseToLowercase 13 0.00218668
-searchByExtensionTest.FindsMatchingExtension 12 0.00237721
-searchByFilenameTest.FindsMatchingFilename 11 0.00255113
-searchBySizeTest.FindsFilesAboveMinimumSize 10 0.00282238
-calculateStatisticsTest.CalculateCorrectStatistics 6 0.00468062
-calculateStatisticsTest.HandlesEmptyFileList 5 0.00557446
-searchByExtensionTest.ReturnsEmptyWhenNoMatch 4 0.00726805
-searchByFilenameTest.ReturnsEmptyWhenNoMatch 3 0.00964387
-searchBySizeTest.ReturnsEmptyWhenNoFileMeetsMinimumSize 2 0.014644
-searchByExtensionTest.IsCaseInsensitive 1 0.0289382
-searchByFilenameTest.IsCaseInsensitive 1 0.0291444
+toLowerTest.ConvertsUppercaseToLowercase 15 0.00210817
+searchByExtensionTest.FindsMatchingExtension 14 0.00196708
+searchByFilenameTest.FindsMatchingFilename 13 0.00216458
+searchBySizeTest.FindsFilesAboveMinimumSize 12 0.00231388
+calculateStatisticsTest.CalculateCorrectStatistics 8 0.00358525
+calculateStatisticsTest.HandlesEmptyFileList 7 0.00406281
+searchByExtensionTest.ReturnsEmptyWhenNoMatch 6 0.00475073
+searchByFilenameTest.ReturnsEmptyWhenNoMatch 5 0.00544806
+searchBySizeTest.ReturnsEmptyWhenNoFileMeetsMinimumSize 4 0.0074657
+searchByExtensionTest.IsCaseInsensitive 3 0.00919623
+searchByFilenameTest.IsCaseInsensitive 3 0.00921343
 ---

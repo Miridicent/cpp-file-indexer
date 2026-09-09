@@ -1,172 +1,160 @@
 #include "file_indexer.h"
 
 #include <iostream>
-#include <filesystem>
-#include <vector>
-#include <string>
-#include <cstdint>
-#include <map>
-//#include <algorithm>
-//#include <cctype>
-
-
-
-
-
 
 void showMenu(const std::vector<FileInfo>& files)
 {
     int choice;
 
-        while (true)
+    while (true)
+    {
+        std::cout << "\nWhat would you like to do?\n";
+        std::cout << "1. Search by extension\n";
+        std::cout << "2. Search by filename\n";
+        std::cout << "3. Search by minimum file size\n";
+        std::cout << "4. Show statistics\n";
+        std::cout << "5. Exit\n";
+        std::cout << "Choice: "; 
+
+        std::cin >> choice;
+
+        if (std::cin.fail())
         {
-            std::cout << "\nWhat would you like to do?\n";
-            std::cout << "1. Search by extension\n";
-            std::cout << "2. Search by filename\n";
-            std::cout << "3. Search by minimum file size\n";
-            std::cout << "4. Show statistics\n";
-            std::cout << "5. Exit\n";
-            std::cout << "Choice: "; 
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
 
-            std::cin >> choice;
+            std::cout << "Invalid input. Please enter a number.\n";
+            continue;
+        }
 
-            if (std::cin.fail())
+        switch (choice)
+        {
+            case 1:
             {
-                std::cin.clear();
-                std::cin.ignore(1000, '\n');
+                std::string searchExtension;
 
-                std::cout << "Invalid input. Please enter a number.\n";
-                continue;
+                std::cout << "Enter an extension to search for: ";
+                std::cin >> searchExtension;
+
+                std::vector<FileInfo> results =
+                    searchByExtension(files, searchExtension);
+
+                if (results.empty())
+                {
+                    std::cout << "No files found with extension: "
+                            << searchExtension << std::endl;
+                }
+                else
+                {
+                    for (const auto& file : results)
+                    {
+                        std::cout << file.path << std::endl;
+                    }
+                }
+
+                break;
             }
 
-            switch (choice)
+            case 2:
             {
-                case 1:
+                std::string searchFilename;
+
+                std::cout << "Enter a filename to search for: ";
+                std::cin >> searchFilename;
+
+                std::vector<FileInfo> results = searchByFilename(files, searchFilename);
+
+                if (results.empty())
                 {
-                    std::string searchExtension;
-
-                    std::cout << "Enter an extension to search for: ";
-                    std::cin >> searchExtension;
-
-                    std::vector<FileInfo> results =
-                        searchByExtension(files, searchExtension);
-
-                    if (results.empty())
+                    std::cout << "No files found with filename: "
+                            << searchFilename << std::endl;
+                }
+                else 
+                {
+                    for (const auto& file : results)
                     {
-                        std::cout << "No files found with extension: "
-                                << searchExtension << std::endl;
+                        std::cout << file.path << std::endl;
                     }
-                    else
-                    {
-                        for (const auto& file : results)
-                        {
-                            std::cout << file.path << std::endl;
-                        }
-                    }
+                }
+                break;
+            }
 
+            case 3:
+            {
+                long long minimumSize;
+
+                std::cout << "Enter minimum file size in bytes: ";
+                std::cin >> minimumSize;
+
+                if (std::cin.fail() || minimumSize < 0)
+                {
+                    std::cin.clear();
+                    std::cin.ignore(1000, '\n');
+
+                    std::cout << "Invalid input. Please enter a non-negative number\n";
                     break;
                 }
 
-                case 2:
+                std::vector<FileInfo> results =
+                        searchBySize(files, static_cast<std::uintmax_t>(minimumSize));
+
+                if (results.empty())
                 {
-                    std::string searchFilename;
-
-                    std::cout << "Enter a filename to search for: ";
-                    std::cin >> searchFilename;
-
-                    std::vector<FileInfo> results = searchByFilename(files, searchFilename);
-
-                    if (results.empty())
-                    {
-                        std::cout << "No files found with filename: "
-                                << searchFilename << std::endl;
-                    }
-                    else 
-                    {
-                        for (const auto& file : results)
-                        {
-                            std::cout << file.path << std::endl;
-                        }
-                    }
-                    break;
+                    std::cout << "No files found with a size of "
+                            << minimumSize << " bytes or larger." << std::endl;
                 }
-
-                case 3:
+                else
                 {
-                    long long minimumSize;
-
-                    std::cout << "Enter minimum file size in bytes: ";
-                    std::cin >> minimumSize;
-
-                    if (std::cin.fail() || minimumSize < 0)
+                    for (const auto& file : results)
                     {
-                        std::cin.clear();
-                        std::cin.ignore(1000, '\n');
-
-                        std::cout << "Invalid input. Please enter a non negative number\n";
-                        break;
+                        std::cout << file.path << " - "
+                                << file.size << " bytes" << std::endl;
                     }
-
-                    std::vector<FileInfo> results =
-                         searchBySize(files, static_cast<std::uintmax_t>(minimumSize));
-
-                    if (results.empty())
-                    {
-                        std::cout << "No files found with a size of "
-                                << minimumSize << " bytes or larger." << std::endl;
-                    }
-                    else
-                    {
-                        for (const auto& file : results)
-                        {
-                            std::cout << file.path << " - "
-                                    << file.size << " bytes" << std::endl;
-                        }
-                    }        
-                    
-                    break;
-                }
-
-                case 4:
-                {
-
-                    Statistics statistics = calculateStatistics(files);
-
-                    std::cout << "\n===== Index Statistics =====\n";
-                    std::cout << "Total files: " << files.size() << std::endl;
-                    std::cout << "Total size: " << statistics.totalSize << " bytes" << std::endl;
-                    std::cout << "Average file size: " << statistics.averageSize << " bytes" << std::endl;
-                    std::cout << "Largest file: " << statistics.largestFilePath << " (" << statistics.largestFileSize << " bytes)" << std::endl;
-                    std::cout << "Smallest file: " << statistics.smallestFilePath << " (" << statistics.smallestFileSize << " bytes)" << std::endl;
-                   
-                    std::cout << "\nFiles by extension:\n";
-                    
-                    for (const auto& entry : statistics.extensionCounts)
-                    {
-                        if (entry.first.empty())
-                        {
-                            std::cout << "  [no extension]: " << entry.second << std::endl;
-                        }
-                        else
-                        {
-                            std::cout << "  " << entry.first << ": " << entry.second << std::endl;
-                        }
-                    }
-
-                    break;
-                }
-
-                case 5:
-                std::cout << "Exiting...\n";
-                return;
-
-                default:
-                    std::cout << "Invalid choice.\n"; 
+                }        
                 
-
+                break;
             }
+
+            case 4:
+            {
+
+                Statistics statistics = calculateStatistics(files);
+
+                std::cout << "\n===== Index Statistics =====\n";
+                std::cout << "Total files: " << files.size() << std::endl;
+                std::cout << "Total size: " << statistics.totalSize << " bytes" << std::endl;
+                std::cout << "Average file size: " << statistics.averageSize << " bytes" << std::endl;
+                std::cout << "Largest file: " << statistics.largestFilePath << " (" << statistics.largestFileSize << " bytes)" << std::endl;
+                std::cout << "Smallest file: " << statistics.smallestFilePath << " (" << statistics.smallestFileSize << " bytes)" << std::endl;
+                
+                std::cout << "\nFiles by extension:\n";
+                
+                for (const auto& entry : statistics.extensionCounts)
+                {
+                    if (entry.first.empty())
+                    {
+                        std::cout << "  [no extension]: " << entry.second << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "  " << entry.first << ": " << entry.second << std::endl;
+                    }
+                }
+
+                break;
+            }
+
+            case 5:
+            std::cout << "Exiting...\n";
+            return;
+
+            default:
+                std::cout << "Invalid choice.\n"; 
+            
+
         }
     }
+}
 
 
 int main(int argc, char* argv[])
@@ -207,5 +195,5 @@ int main(int argc, char* argv[])
         showMenu(files);
     }
 
-return 0;
+    return 0;
 }

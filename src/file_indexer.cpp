@@ -10,10 +10,10 @@
 std::string toLower(std::string text)
 {
     std::transform(text.begin(), text.end(), text.begin(),
-                    [](unsigned char c)
-                    {
-                        return std::tolower(c);
-                    });
+                   [](unsigned char c)
+                   {
+                       return std::tolower(c);
+                   });
     return text;
 }
 
