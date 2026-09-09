@@ -1,5 +1,5 @@
 {
-  "tests": 5,
+  "tests": 11,
   "name": "AllTests",
   "testsuites": [
     {
@@ -15,45 +15,75 @@
     },
     {
       "name": "searchByExtensionTest",
-      "tests": 1,
+      "tests": 3,
       "testsuite": [
         {
           "name": "FindsMatchingExtension",
           "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
           "line": 11
+        },
+        {
+          "name": "IsCaseInsensitive",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 28
+        },
+        {
+          "name": "ReturnsEmptyWhenNoMatch",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 131
         }
       ]
     },
     {
       "name": "searchByFilenameTest",
-      "tests": 1,
+      "tests": 3,
       "testsuite": [
         {
           "name": "FindsMatchingFilename",
           "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
-          "line": 28
+          "line": 43
+        },
+        {
+          "name": "IsCaseInsensitive",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 59
+        },
+        {
+          "name": "ReturnsEmptyWhenNoMatch",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 145
         }
       ]
     },
     {
       "name": "searchBySizeTest",
-      "tests": 1,
+      "tests": 2,
       "testsuite": [
         {
           "name": "FindsFilesAboveMinimumSize",
           "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
-          "line": 44
+          "line": 74
+        },
+        {
+          "name": "ReturnsEmptyWhenNoFileMeetsMinimumSize",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 158
         }
       ]
     },
     {
       "name": "calculateStatisticsTest",
-      "tests": 1,
+      "tests": 2,
       "testsuite": [
         {
           "name": "CalculateCorrectStatistics",
           "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
-          "line": 62
+          "line": 92
+        },
+        {
+          "name": "HandlesEmptyFileList",
+          "file": "C:\\Users\\conor\\OneDrive\\Documents\\cpp-file-indexer\\tests\\file_indexer_tests.cpp",
+          "line": 116
         }
       ]
     }

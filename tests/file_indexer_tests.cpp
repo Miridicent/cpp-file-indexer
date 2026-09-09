@@ -25,6 +25,21 @@ TEST(searchByExtensionTest, FindsMatchingExtension)
     EXPECT_EQ(results[1].filename, "main.cpp");
 }
 
+TEST(searchByExtensionTest, IsCaseInsensitive)
+{
+    std::vector<FileInfo> files =
+    {
+        FileInfo{std::filesystem::path("test.cpp"), "test.cpp", ".cpp", 100},
+        FileInfo{std::filesystem::path("readme.md"), "readme.md", ".md", 200}
+    };
+
+    std::vector<FileInfo> results =
+        searchByExtension(files, ".CPP");
+
+    ASSERT_EQ(results.size(), 1);
+    EXPECT_EQ(results[0].filename, "test.cpp");
+}
+
 TEST(searchByFilenameTest, FindsMatchingFilename)
 {
     std::vector<FileInfo> files =
@@ -39,6 +54,21 @@ TEST(searchByFilenameTest, FindsMatchingFilename)
     
         ASSERT_EQ(results.size(), 1);
         EXPECT_EQ(results[0].filename, "main.cpp");
+}
+
+TEST(searchByFilenameTest, IsCaseInsensitive)
+{
+    std::vector<FileInfo> files =
+    {
+        FileInfo{std::filesystem::path("test.cpp"), "test.cpp", ".cpp", 100},
+        FileInfo{std::filesystem::path("README.md"), "README.md", ".md", 200}
+    };
+
+    std::vector<FileInfo> results =
+        searchByFilename(files, "readme.MD");
+
+    ASSERT_EQ(results.size(), 1);
+    EXPECT_EQ(results[0].filename, "README.md");
 }
 
 TEST(searchBySizeTest, FindsFilesAboveMinimumSize)
@@ -81,4 +111,60 @@ TEST(calculateStatisticsTest, CalculateCorrectStatistics)
 
     EXPECT_EQ(statistics.extensionCounts[".cpp"], 2);
     EXPECT_EQ(statistics.extensionCounts[".txt"], 1);
+}
+
+TEST(calculateStatisticsTest, HandlesEmptyFileList)
+{
+    std::vector<FileInfo> files;
+
+    Statistics statistics = calculateStatistics(files);
+
+    EXPECT_EQ(statistics.totalSize, 0);
+    EXPECT_DOUBLE_EQ(statistics.averageSize, 0.0);
+    EXPECT_EQ(statistics.largestFileSize, 0);
+    EXPECT_EQ(statistics.smallestFileSize, 0);
+    EXPECT_TRUE(statistics.largestFilePath.empty());
+    EXPECT_TRUE(statistics.smallestFilePath.empty());
+    EXPECT_TRUE(statistics.extensionCounts.empty());
+}
+
+TEST(searchByExtensionTest, ReturnsEmptyWhenNoMatch)
+{
+    std::vector<FileInfo> files =
+    {
+        FileInfo{std::filesystem::path("test.cpp"), "test.cpp", ".cpp", 100},
+        FileInfo{std::filesystem::path("readme.md"), "readme.md", ".md", 200}
+    };
+
+    std::vector<FileInfo> results =
+        searchByExtension(files, ".txt");
+
+    EXPECT_TRUE(results.empty());
+}
+
+TEST(searchByFilenameTest, ReturnsEmptyWhenNoMatch)
+{
+    std::vector<FileInfo> files =
+    {
+        FileInfo(std::filesystem::path("test.cpp"), "test.cpp", ".cpp", 100),
+        FileInfo(std::filesystem::path("readme.md"), "readme.md", ".md", 200)
+    };
+
+    std::vector<FileInfo> results = searchByFilename(files, "missing.txt");
+
+    EXPECT_TRUE(results.empty());
+}
+
+TEST(searchBySizeTest, ReturnsEmptyWhenNoFileMeetsMinimumSize)
+{
+    std::vector<FileInfo> files =
+    {
+        FileInfo{std::filesystem::path("small.txt"), "small.txt", ".txt", 100},
+        FileInfo{std::filesystem::path("medium.cpp"), "medium.cpp", ".cpp", 500}
+    };
+
+    std::vector<FileInfo> results =
+        searchBySize(files, 1000);
+
+    EXPECT_TRUE(results.empty());
 }
