@@ -1,5 +1,0 @@
-if(EXISTS "C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/fileindex_tests_e3b0c442_Release_tests.cmake")
-  include("C:/Users/conor/OneDrive/Documents/cpp-file-indexer/build/fileindex_tests_e3b0c442_Release_tests.cmake")
-else()
-  add_test(fileindex_tests_NOT_BUILT fileindex_tests_NOT_BUILT)
-endif()
